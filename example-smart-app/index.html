@@ -169,15 +169,16 @@
 				console.log(response);
 				var retString = "<table class='dataTable'>";
 				var DevCnt = 0;
-				if (response.type && response.type.length) {
-					response.forEach(function(DevObj,idx){
+				response.forEach(function(DevObj,idx){
+					if (DevObj.type) {
 						DevCnt++
 						retString += 
 							"<tr>"+
 								"<td>"+DevObj.type.text+"</td>"+
 							"</tr>";
-					});
-				}
+					}
+				});
+				retstring += "List of Devices"
 				retString += "</table>";
 				if (DevCnt > 0) {
 					$("#DevDiv").html(retString);
