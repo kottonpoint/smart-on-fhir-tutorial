@@ -251,8 +251,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var results;
 	      results = [];
 	      for (k in m) {
-	        v = m[k];
-	        results.push([k, v]);
+			v = m[k];
+			if (k === "_id") {
+				results = [[k, v]];
+				break;
+			}
+			else {
+				results.push([k, v]);
+			}
 	      }
 	      return results;
 	    })()).reduce(fn, acc);
@@ -364,7 +370,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @name JavaScript/NodeJS Merge v1.1.3
 	 * @author yeikos
 	 * @repository https://github.com/yeikos/js.merge
-
 	 * Copyright 2014 yeikos - MIT license
 	 * https://raw.github.com/yeikos/js.merge/master/LICENSE
 	 */
@@ -3036,12 +3041,9 @@ code.google.com/p/crypto-js/wiki/License
 */
 /** @preserve
 (c) 2012 by Cédric Mesnil. All rights reserved.
-
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
     - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
     - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -10727,7 +10729,6 @@ var data_user = new Data();
 
 /*
 	Implementation Summary
-
 	1. Enforce API surface and semantic compatibility with 1.9.x branch
 	2. Improve the module's maintainability by reducing the storage
 		paths to a single mechanism.
@@ -17225,7 +17226,8 @@ BBClient.ready = function(input, callback, errback){
 
     var fhirClientParams = {
       serviceUrl: state.provider.url,
-      patientId: tokenResponse.patient
+      patientId: tokenResponse.patient,
+      encounterId: tokenResponse.encounter
     };
     
     if (tokenResponse.id_token) {
@@ -17499,7 +17501,9 @@ function FhirClient(p) {
     
     if (p.patientId) {
         client.patient = {};
+		client.encounter = {};
         client.patient.id = p.patientId;
+		client.encounter.id = p.encounterId;
         client.patient.api = fhir({
             baseUrl: server.serviceUrl,
             auth: auth,
