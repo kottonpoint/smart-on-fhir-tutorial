@@ -37,6 +37,7 @@
 		<div id="medStatementDiv" class="dataDiv">Loading meds...</div>
 		<div id="allergyDiv" class="dataDiv">Loading allergies...</div>
 		<div id="obvDiv" class="dataDiv">Loading observations...</div>
+		<div id="DevDiv" class="dataDiv">Loading Device Information...</div>
 	</body>
 	<!-- Required JS files to enable this page to embed within an MPage -->
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js'></script>
@@ -163,6 +164,27 @@
 				});
 				retString += "</table>";
 				$("#allergyDiv").html(retString);
+			});
+			patientApi.fetchAll({type:'Device'}).then(function(response) {
+				console.log(response);
+				var retString = "<table class='dataTable'>";
+				var DevCnt = 0;
+				if (response.type && response.type.length) {
+					response.forEach(function(DevObj,idx){
+						DevCnt++
+						retString += 
+							"<tr>"+
+								"<td>"+DevObj.type.text+"</td>"+
+							"</tr>";
+					});
+				}
+				retString += "</table>";
+				if (DevCnt > 0) {
+					$("#DevDiv").html(retString);
+				}
+				else {
+					$("#DevDiv").html(No Devices Found);
+				}
 			});
 			var lookbackDate = new Date();
 			lookbackDate.setMonth(lookbackDate.getMonth()-6);
