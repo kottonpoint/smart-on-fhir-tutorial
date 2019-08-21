@@ -188,7 +188,8 @@
 					$("#DevDiv").html(retString);
 				}
 				else {
-					$("#DevDiv").html("No Devices Found");
+					retString += "No Devices Found"
+					$("#DevDiv").html(retString);
 				}
 			});
 			var lookbackDate = new Date();
