@@ -149,16 +149,29 @@
 			patientApi.fetchAll({type: 'MedicationStatement'}).then(function(response) {
 				var retString = "<table class='dataTable'>";
 				retString += "<th>"+ "Medication Listing"+ "</th>";
+				var MedCnt = 0;
 				response.forEach(function(medObj,idx){
+					MedCnt++
 					retString += "<tr><td>"+medObj.medicationCodeableConcept.text+"</td></tr>";
 				});
+				
 				retString += "</table>";
-				$("#medStatementDiv").html(retString);
+				
+				if (MedCnt > 0) {
+					$("#medStatementDiv").html(retString);
+				}
+				else {
+					retString += "No Medications Found"
+					$("#medStatementDiv").html(retString);
+				}
+
 			});
 			patientApi.fetchAll({type:'AllergyIntolerance',query:{status:'active'}}).then(function(response) {
 				var retString = "<table class='dataTable'>";
 				retString += "<th>"+ "Allergy Listing"+ "</th>";
+				var AllCnt = 0;
 				response.forEach(function(allObj,idx){
+					AllCnt++
 					retString += 
 						"<tr>"+
 							"<td>"+allObj.substance.text+"</td>"+
@@ -166,7 +179,14 @@
 						"</tr>";
 				});
 				retString += "</table>";
-				$("#allergyDiv").html(retString);
+				
+				if (AllCnt > 0) {
+					$("#allergyDiv").html(retString);
+				}
+				else {
+					retString += "No Allergies Found"
+					$("#allergyDiv").html(retString);
+				}
 			});
 			patientApi.fetchAll({type:'Device'}).then(function(response) {
 				console.log(response);
@@ -224,7 +244,9 @@
 				}
 				var retString = "<table class='dataTable'>";
 				retString += "<th>"+ "Lab and Vital Sign Listing"+ "</th>";
+				var ObjCnt =0;
 				response.forEach(function(obvObj,idx){
+					ObjCnt++
 					if (typeof obvObj.valueQuantity === "object") {
 						retString += handleValueQuantity( obvObj.valueQuantity, obvObj.effectiveDateTime, obvObj.code.text );
 					}
@@ -237,7 +259,14 @@
 					}
 				});
 				retString += "</table>";
-				$("#obvDiv").html(retString);
+				
+				if (ObjCnt > 0) {
+					$("#obvDiv").html(retString);
+				}
+				else {
+					retString += "No Lab or Vital Sign Results Found"
+					$("#obvDiv").html(retString);
+				}
 			});
 		}
 	}
