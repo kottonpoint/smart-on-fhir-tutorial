@@ -148,6 +148,7 @@
 			
 			patientApi.fetchAll({type: 'MedicationStatement'}).then(function(response) {
 				var retString = "<table class='dataTable'>";
+				retString += "<th>"+ "Medication Listing"+ "</th>";
 				response.forEach(function(medObj,idx){
 					retString += "<tr><td>"+medObj.medicationCodeableConcept.text+"</td></tr>";
 				});
@@ -156,6 +157,7 @@
 			});
 			patientApi.fetchAll({type:'AllergyIntolerance',query:{status:'active'}}).then(function(response) {
 				var retString = "<table class='dataTable'>";
+				retString += "<th>"+ "Allergy Listing"+ "</th>";
 				response.forEach(function(allObj,idx){
 					retString += 
 						"<tr>"+
@@ -220,6 +222,7 @@
 							"</tr>";
 				}
 				var retString = "<table class='dataTable'>";
+				retString += "<th>"+ "Device Listing"+ "</th>";
 				response.forEach(function(obvObj,idx){
 					if (typeof obvObj.valueQuantity === "object") {
 						retString += handleValueQuantity( obvObj.valueQuantity, obvObj.effectiveDateTime, obvObj.code.text );
