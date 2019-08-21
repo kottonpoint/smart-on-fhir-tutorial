@@ -223,7 +223,7 @@
 							"</tr>";
 				}
 				var retString = "<table class='dataTable'>";
-				retString += "<th>"+ "Device Listing"+ "</th>";
+				retString += "<th>"+ "Lab and Vital Sign Listing"+ "</th>";
 				response.forEach(function(obvObj,idx){
 					if (typeof obvObj.valueQuantity === "object") {
 						retString += handleValueQuantity( obvObj.valueQuantity, obvObj.effectiveDateTime, obvObj.code.text );
