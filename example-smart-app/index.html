@@ -7,6 +7,7 @@
 	<style type="text/css">
 		.dataTable {width:100%;table-layout:fixed;border-collapse:collapse;}
 		.dataTable td {box-sizing:border-box;border-bottom:1px solid #000;width:100%;}	
+		.dataTable th {box-sizing:border-box;border-bottom:1px solid #000;width:100%;}	
 		.dataDiv {width:100%;margin-bottom:6px;border:1px solid #000;}
 		
 		.chld-mo-demobar {margin:0 0 6px 0;padding:0;}
@@ -168,6 +169,7 @@
 			patientApi.fetchAll({type:'Device'}).then(function(response) {
 				console.log(response);
 				var retString = "<table class='dataTable'>";
+				retString += "<th>"+ "Device Listing"+ "</th>";
 				var DevCnt = 0;
 				response.forEach(function(DevObj,idx){
 					if (DevObj.type) {
@@ -178,15 +180,12 @@
 							"</tr>";
 					}
 				});
-				retString += "List of Devices:"
-				retString += "----------------"
+				retString += "</table>";
 
 				if (DevCnt > 0) {
-					retString += "</table>";
 					$("#DevDiv").html(retString);
 				}
 				else {
-					retString += "No Devices Found";
 					$("#DevDiv").html("No Devices Found");
 				}
 			});
