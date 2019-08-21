@@ -178,12 +178,15 @@
 							"</tr>";
 					}
 				});
-				retString += "List of Devices"
-				retString += "</table>";
+				retString += "List of Devices:"
+				retString += "----------------"
+
 				if (DevCnt > 0) {
+					retString += "</table>";
 					$("#DevDiv").html(retString);
 				}
 				else {
+					retString += "No Devices Found";
 					$("#DevDiv").html("No Devices Found");
 				}
 			});
